@@ -3,26 +3,16 @@ package besttimetobuystock
 // import "fmt"
 
 func maxProfit(prices []int) int {
-	var profit, candidate, ihigh int
+	var profit, low, diff int
 
-	low := prices[0]
-	candidate = prices[0]
-	// fmt.Println("profit, prices[i], low, candidate")
+	low = prices[0]
 	for i := 1; i < len(prices); i++ {
-		// fmt.Println(profit, prices[i], low, candidate)
-		if ihigh == 0 && (prices[i]-low) < 0 {
+		diff = prices[i] - low
+		if prices[i] < low {
 			low = prices[i]
-			candidate = low
+		} else if diff > profit {
+			profit = diff
 		}
-		if (prices[i] - candidate) > profit {
-			profit = (prices[i] - candidate)
-			ihigh = i
-		}
-
-		if low > prices[i] && candidate > prices[i] {
-			candidate = prices[i]
-		}
-
 	}
 
 	return profit
